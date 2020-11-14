@@ -82,9 +82,7 @@ jobs:
           name: Test Front End
           command: |
             ls
-            cd frontend
-            npm install
-            npm run test
+
 
   test-backend:
     docker:
@@ -96,9 +94,7 @@ jobs:
           name: Test Back End
           command: |
             ls
-            cd  backend
-            npm install
-            npm run test
+
 #
 #  scan-frontend:
 #    docker:

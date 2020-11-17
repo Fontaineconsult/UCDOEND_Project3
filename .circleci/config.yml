@@ -131,11 +131,12 @@ jobs:
       - restore_cache:
           keys: [ backend-build ]
       - run:
-          name: Analyze Frontend
+          name: Analyze Backend
           command: |
 
             cd backend
             npm audit --audit-level=critical
+
 #
 #  deploy-infrastructure:
 #    docker:

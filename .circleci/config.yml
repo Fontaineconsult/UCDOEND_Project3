@@ -85,6 +85,7 @@ jobs:
             ls
             ls frontend/node_modules
             cd frontend
+            npm install request
             npm run test
 
 

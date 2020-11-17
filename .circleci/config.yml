@@ -101,6 +101,7 @@ jobs:
           command: |
             ls
             cd backend
+            npm install request
             npm run test
 #
 #  scan-frontend:

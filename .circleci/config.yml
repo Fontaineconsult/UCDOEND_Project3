@@ -56,7 +56,10 @@ jobs:
           paths: [frontend/node_modules]
           key: frontend-build
 
-
+      - slack/notify:
+          channel: general
+          event: fail
+          template: basic_fail_1
 
   build-backend:
     docker:
@@ -76,24 +79,10 @@ jobs:
           paths: [backend/node_modules]
           key: backend-build
 
-
       - slack/notify:
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "plain_text",
-                      "text": "*This is a text notification*",
-                      "emoji": true
-                    }
-                  ]
-                }
-              ]
-            }
-          event: always
+          channel: general
+          event: fail
+          template: basic_fail_1
 
   test-frontend:
     docker:
@@ -110,7 +99,10 @@ jobs:
             cd frontend
             npm install request
             npm run test
-
+      - slack/notify:
+          channel: general
+          event: fail
+          template: basic_fail_1
 
   test-backend:
     docker:
@@ -126,6 +118,11 @@ jobs:
             cd backend
             npm install request
             npm run test
+
+      - slack/notify:
+          channel: general
+          event: fail
+          template: basic_fail_1
 
   scan-frontend:
     docker:
@@ -145,6 +142,12 @@ jobs:
       # Restore from cache
       # Your job code here
 
+      - slack/notify:
+          channel: general
+          event: fail
+          template: basic_fail_1
+
+
   scan-backend:
     docker:
       - image: circleci/node:13.8.0
@@ -160,6 +163,10 @@ jobs:
             cd backend
             npm audit --audit-level=critical
 
+      - slack/notify:
+          channel: general
+          event: fail
+          template: basic_fail_1
 
 #  deploy-infrastructure:
 #    docker:

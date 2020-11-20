@@ -177,7 +177,6 @@ jobs:
     steps:
       - checkout
       - run:
-          - checkout
           name: Ensure back-end infrastructure exists
           command: |
             aws cloudformation deploy \

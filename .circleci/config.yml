@@ -165,6 +165,8 @@ jobs:
 
       - slack/notify:
           event: fail
+          channel: general
+          template: basic_fail_1
 
   deploy-infrastructure:
 
@@ -203,6 +205,11 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
+
+      - slack/notify:
+          event: fail
+          channel: general
+          template: basic_fail_1
 
 #       Here's where you will add some code to rollback on failure
 

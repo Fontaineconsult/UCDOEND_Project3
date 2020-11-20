@@ -238,7 +238,6 @@ jobs:
       ansible_ssh_retries:
         default: 5
         type: integer
-
       ansible-key-checking:
         default: False
         type: boolean
@@ -263,7 +262,7 @@ jobs:
           command: |
             # Your code here
             ls
-            ansible-playbook -i inventory.txt backend.yml
+            ansible-playbook -i project/.circleci/ansible/inventory.txt project/.circleci/ansible/roles/configure-server/tasks/configure-server.yml
 #      # Here's where you will add some code to rollback on failure
 #
 #  run-migrations:

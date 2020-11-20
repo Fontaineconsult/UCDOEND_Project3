@@ -257,7 +257,7 @@ jobs:
       # Add ssh keys with fingerprint
       # attach workspace
       - attach_workspace:
-          at: project/
+          at: ~/
       - run:
           name: Install dependencies
           command: |
@@ -267,7 +267,7 @@ jobs:
           command: |
             # Your code here
             ls project
-            ansible-playbook -i project/inventory.txt .circleci/ansible/roles/configure-server/tasks/configure-server.yml
+            ansible-playbook -i inventory.txt .circleci/ansible/roles/configure-server/tasks/configure-server.yml
 #      # Here's where you will add some code to rollback on failure
 #
 #  run-migrations:

@@ -218,7 +218,7 @@ jobs:
       - run:
           name: take a look
           command: |
-            - ls
+            ls
 
       - run:
 

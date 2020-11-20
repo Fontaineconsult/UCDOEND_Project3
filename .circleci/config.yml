@@ -213,7 +213,12 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/.circleci/ansible/inventory.txt
+            - project/inventory.txt
+
+      - run:
+          name: take a look
+          command: |
+            - ls
 
       - run:
 
@@ -252,7 +257,7 @@ jobs:
       # Add ssh keys with fingerprint
       # attach workspace
       - attach_workspace:
-          at: project/.circleci/ansible/
+          at: project/
       - run:
           name: Install dependencies
           command: |
@@ -261,8 +266,8 @@ jobs:
           name: Configure server
           command: |
             # Your code here
-            ls /project/.circleci/
-            ansible-playbook -i project/.circleci/ansible/inventory.txt project/.circleci/ansible/roles/configure-server/tasks/configure-server.yml
+            ls project
+            ansible-playbook -i project/inventory.txt .circleci/ansible/roles/configure-server/tasks/configure-server.yml
 #      # Here's where you will add some code to rollback on failure
 #
 #  run-migrations:

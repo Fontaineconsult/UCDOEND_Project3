@@ -215,7 +215,7 @@ jobs:
           paths:
             - project/.circleci/ansible/inventory.txt
 
-      -run:
+      - run:
 
           name: delete stack on fail
           when: on_fail

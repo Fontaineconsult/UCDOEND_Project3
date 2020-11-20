@@ -218,8 +218,9 @@ jobs:
 
       - delete_stack_on_fail:
           when: on_fail
-          aws cloudformation delete-stack --stack-name << parameters.backend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
-          aws cloudformation delete-stack --stack-name << parameters.frontend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
+          command: |
+            aws cloudformation delete-stack --stack-name << parameters.backend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
+            aws cloudformation delete-stack --stack-name << parameters.frontend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
 
 #      - slack/notify:
 #          event: fail

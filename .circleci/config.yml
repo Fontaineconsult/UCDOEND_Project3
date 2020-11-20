@@ -171,8 +171,11 @@ jobs:
   deploy-infrastructure:
 
     parameters:
-      stack-name:
-        default: project3
+      backend-stack-name:
+        default: project3-back-end
+        type: string
+      frontend-stack-name:
+        default: project3-front-end
         type: string
     docker:
       - image: amazon/aws-cli
@@ -183,8 +186,8 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
-              --tags project=project3 \
-              --stack-name project3-${CIRCLE_WORKFLOW_ID}  \
+              --tags project=project3-back-end \
+              --stack-name project3-back-end-${CIRCLE_WORKFLOW_ID}  \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
 
       - run:
@@ -192,14 +195,14 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
-              --tags project=project3 \
-              --stack-name project3-${CIRCLE_WORKFLOW_ID} \
+              --tags project=project3-front-end \
+              --stack-name project3-front-end-${CIRCLE_WORKFLOW_ID} \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
 
       - run:
           name: Add back-end ip to ansible inventory
           command: |
-            aws cloudformation wait stack-create-complete --stack-name << parameters.stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
+            aws cloudformation wait stack-create-complete --stack-name << parameters.backend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
             aws ec2 describe-instances --region=us-west-2 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory.txt
       - persist_to_workspace:
           root: ~/

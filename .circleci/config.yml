@@ -215,8 +215,9 @@ jobs:
           paths:
             - project/.circleci/ansible/inventory.txt
 
+      -run:
 
-      - delete_stack_on_fail:
+          name: delete stack on fail
           when: on_fail
           command: |
             aws cloudformation delete-stack --stack-name << parameters.backend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2

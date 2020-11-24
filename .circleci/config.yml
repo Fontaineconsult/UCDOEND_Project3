@@ -283,7 +283,7 @@ jobs:
           name: Save Workdflow ID
           command: |
             ls .circleci/ansible/roles/deploy-backend/
-            cat ${CIRCLE_WORKFLOW_ID} > .circleci/ansible/roles/deploy-backend/files/wid.txt
+            printf ${CIRCLE_WORKFLOW_ID} > .circleci/ansible/roles/deploy-backend/files/wid.txt
       - run:
           name: Run migrations
           command: |

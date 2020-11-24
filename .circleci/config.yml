@@ -276,10 +276,13 @@ jobs:
           name: Install dependencies
           command: |
             sudo apt-get install ansible
-
       - checkout
       - attach_workspace:
           at: ~/
+      - run:
+          name: Save Workdflow ID
+          command: |
+            ${CIRCLE_WORKFLOW_ID} > .circleci/ansible/roles/deploy-backend/files/wid.txt
       - run:
           name: Run migrations
           command: |

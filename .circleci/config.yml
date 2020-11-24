@@ -284,7 +284,7 @@ jobs:
           name: Run migrations
           command: |
             ls
-            ansible-playbook -i inventory.txt .circleci/ansible/roles/configure-server/tasks/deploy.yml
+            ansible-playbook -i inventory.txt .circleci/ansible/roles/configure-server/tasks/deploy-backend.yml
 
 
 

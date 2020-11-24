@@ -22,4 +22,10 @@
       command: ls
 
     - name: Start Migration
-      command: npm run migrations
+      command: npm run migrations || exit 1
+
+
+
+
+
+

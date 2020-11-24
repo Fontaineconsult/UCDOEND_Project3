@@ -219,9 +219,7 @@ jobs:
           name: take a look
           command: |
             ls
-
       - run:
-
           name: delete stack on fail
           when: on_fail
           command: |
@@ -275,25 +273,17 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/
       - run:
           name: Run migrations
           command: |
+            ls
+            ansible-playbook -i inventory.txt .circleci/ansible/roles/configure-server/tasks/deploy.yml
 
-            cd backend
-            npm install
-            npm run migrations 2>&1 | tee migration.txt
 
-      - run:
-          name: Send migration results to memstash
-          command: |
-            cd backend
-            if grep -q "has been executed successfully" migration.txt; then curl -H "Content-Type: text/plain" -H "token: ef8d48b8-e227-4017-b947-1a2329902938" --request PUT --data "0" https://api.memstash.io/values/${CIRCLE_WORKFLOW_ID}; else curl -H "Content-Type: text/plain" -H "token: ef8d48b8-e227-4017-b947-1a2329902938" --request PUT --data "1" https://api.memstash.io/values/${CIRCLE_WORKFLOW_ID}; fi
 
-      - run:
-         name: Rollback on fail.
-         command: |
-           cd backend
-           if ! grep -q "has been executed successfully" migration.txt; then npm run migrations:revert; fi
+
 
 
      # Here's where you will add some code to rollback on failure

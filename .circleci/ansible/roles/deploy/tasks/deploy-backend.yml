@@ -1,0 +1,25 @@
+---
+
+- name: "configuration play." 
+  hosts: web
+  user: ubuntu
+  gather_facts: false
+  vars:
+    - ansible_python_interpreter: /usr/bin/python3
+    - ansible_host_key_checking: false
+    - ansible_stdout_callback: yaml
+  tasks:
+
+    - name: Git Checkout
+      git:
+        repo: https://github.com/Fontaineconsult/UCDOEND_Project3.git
+        dest: ~/
+
+    - name: CD Into Backend
+      command: cd backend
+
+    - name: Take a Look
+      command: ls
+
+    - name: Start Migration
+      command: npm run migrations

@@ -272,6 +272,11 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get install ansible
+
       - checkout
       - attach_workspace:
           at: ~/

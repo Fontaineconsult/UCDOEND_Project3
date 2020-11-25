@@ -289,7 +289,7 @@ jobs:
           name: Run migrations
           command: |
             ls
-            ansible-playbook -i inventory.txt .circleci/ansible/roles/deploy-backend/tasks/deploy-backend.yml
+            ANSIBLE_ENABLE_TASK_DEBUGGER=True ansible-playbook -i inventory.txt .circleci/ansible/roles/deploy-backend/tasks/deploy-backend.yml
       - run:
           name: Check if migration successful
           command: |

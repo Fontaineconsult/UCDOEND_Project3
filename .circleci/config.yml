@@ -223,7 +223,6 @@ jobs:
           name: take a look
           command: |
             ls |
-            cat inventory.txt
       - run:
           name: delete stack on fail
           when: on_fail

@@ -265,9 +265,6 @@ jobs:
           command: |
             sudo apt-get install ansible
       - run:
-          name: Disable Host Key Checking
-          command:
-      - run:
           name: Configure server
           command: |
             # Your code here

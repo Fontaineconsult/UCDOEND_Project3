@@ -205,6 +205,10 @@ jobs:
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
 
       - run:
+          name: create inventory file
+          command: cat "[web]" > inventory.txt
+
+      - run:
           name: Add back-end ip to ansible inventory
           command: |
             aws cloudformation wait stack-create-complete --stack-name << parameters.backend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
@@ -218,7 +222,8 @@ jobs:
       - run:
           name: take a look
           command: |
-            ls
+            ls |
+            cat inventory.txt
       - run:
           name: delete stack on fail
           when: on_fail

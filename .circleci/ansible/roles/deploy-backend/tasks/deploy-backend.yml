@@ -26,7 +26,10 @@
       command: npm run migrations > output.txt
 
     - name: Test
-      command: ls
+      command: ls .circleci/ansible/roles/deploy-backend/files
+
+    - name: Test
+      command: cat .circleci/ansible/roles/deploy-backend/files/wid.txt
 
     - name: Save ouput to memstash if success
       shell: |

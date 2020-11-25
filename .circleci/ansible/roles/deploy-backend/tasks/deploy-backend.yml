@@ -29,10 +29,10 @@
       command: ls .circleci/ansible/roles/deploy-backend/files
 
     - debug: Test1
-      msg: cat .circleci/ansible/roles/deploy-backend/files/wid.txt
+        msg: cat .circleci/ansible/roles/deploy-backend/files/wid.txt
 
     - debug: Test2
-      msg: echo https://api.memstash.io/values/$(< .circleci/ansible/roles/deploy-backend/files/wid.txt)
+        msg: echo https://api.memstash.io/values/$(< .circleci/ansible/roles/deploy-backend/files/wid.txt)
 
     - name: Save ouput to memstash if success
       shell: |

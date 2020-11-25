@@ -206,7 +206,7 @@ jobs:
 
       - run:
           name: create inventory file
-          command: cat "[web]" > inventory.txt
+          command: echo [web] >> inventory.txt
 
       - run:
           name: Add back-end ip to ansible inventory

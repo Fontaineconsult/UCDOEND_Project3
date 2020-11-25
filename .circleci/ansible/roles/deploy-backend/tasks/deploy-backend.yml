@@ -28,7 +28,7 @@
     - name: Test
       command: ls .circleci/ansible/roles/deploy-backend/files
 
-    - name: Test
+    - name: Test1
       command: cat .circleci/ansible/roles/deploy-backend/files/wid.txt
 
     - name: Save ouput to memstash if success

@@ -261,6 +261,9 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
+          name: Disable Host Key Checking
+          command: export ANSIBLE_HOST_KEY_CHECKING=False
+      - run:
           name: Install dependencies
           command: |
             sudo apt-get install ansible
@@ -294,7 +297,7 @@ jobs:
             cat .circleci/ansible/roles/deploy-backend/files/wid.txt
       - run:
           name: disable ansible key checking
-          command: export ANSIBLE_HOST_KEY_CHECKING=False && export ANSIBLE_SSH_RETRIES=5
+          command: export ANSIBLE_HOST_KEY_CHECKING=False
       - run:
           name: Run migrations
           command: |

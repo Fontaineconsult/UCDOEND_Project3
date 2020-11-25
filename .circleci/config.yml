@@ -289,6 +289,10 @@ jobs:
           command: |
             ls
             ansible-playbook -i inventory.txt .circleci/ansible/roles/deploy-backend/tasks/deploy-backend.yml
+      - run:
+          name: Check if migration successful
+          command: |
+            curl -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request GET https://api.memstash.io/values/${CIRCLE_WORKFLOW_ID}
 
 
 

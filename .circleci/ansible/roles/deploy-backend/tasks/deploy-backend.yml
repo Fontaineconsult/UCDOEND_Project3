@@ -1,6 +1,7 @@
+
 ---
 
-- name: "configuration play." 
+- name: "configuration play."
   hosts: web
   user: ubuntu
   gather_facts: false
@@ -25,10 +26,12 @@
       command: npm run migrations > output.txt
 
     - name: Save ouput to memstash if success
-      shell: if grep -q "has been executed successfully" output.txt; then curl -H "Content-Type: text/plain" -H "token: ef8d48b8-e227-4017-b947-1a2329902938" --request PUT --data "0" https://api.memstash.io/values/$(< wid.txt); fi
+      shell: |
+        if grep -q \"has been executed successfully\" output.txt; then curl -H \"Content-Type\{{ ":" }} text/plain\" -H \"token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1\" --request PUT --data 0 https://api.memstash.io/values/$(< wid.txt); fi
 
     - name: Save ouput to memstash if fail
-      shell: if ! grep -q "has been executed successfully" output.txt; then curl -H "Content-Type: text/plain" -H "token: ef8d48b8-e227-4017-b947-1a2329902938" --request PUT --data "1" https://api.memstash.io/values/$(< wid.txt); fi
+      shell: |
+        if ! grep -q \"has been executed successfully\" output.txt; then curl -H \"Content-Type\{{ ":" }} text/plain\" -H \"token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1\" --request PUT --data 1 https://api.memstash.io/values/$(< wid.txt); fi
 
 
 

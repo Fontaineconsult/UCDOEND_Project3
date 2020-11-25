@@ -222,7 +222,7 @@ jobs:
       - run:
           name: take a look
           command: |
-            ls |
+            ls
       - run:
           name: delete stack on fail
           when: on_fail

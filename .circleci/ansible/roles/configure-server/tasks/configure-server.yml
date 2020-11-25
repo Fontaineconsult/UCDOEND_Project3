@@ -9,16 +9,16 @@
     - ansible_host_key_checking: false
     - ansible_stdout_callback: yaml
 
-  environment:
-    - ANSIBLE_HOST_KEY_CHECKING=False
-    - ENVIRONMENT=production
-    - TYPEORM_CONNECTION=postgres
-    - TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts
-    - TYPEORM_HOST=project3
-    - TYPEORM_PORT=5432
-    - TYPEORM_USERNAME=postgres
-    - TYPEORM_PASSWORD=project3
-    - TYPEORM_DATABASE=project3
+  env:
+    - ANSIBLE_HOST_KEY_CHECKING: false
+    - ENVIRONMENT: production
+    - TYPEORM_CONNECTION: postgres
+    - TYPEORM_ENTITIES: ./src/modules/domain/**/*.entity.ts
+    - TYPEORM_HOST: project3
+    - TYPEORM_PORT: 5432
+    - TYPEORM_USERNAME: postgres
+    - TYPEORM_PASSWORD: project3
+    - TYPEORM_DATABASE: project3
 
   tasks:
 

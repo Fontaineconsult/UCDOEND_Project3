@@ -263,7 +263,7 @@ jobs:
       - run:
           name: Disable Host Key Checking
           command: |
-            export ANSIBLE_HOST_KEY_CHECKING=false && export ANSIBLE_SSH_RETRIES=5
+            export ANSIBLE_HOST_KEY_CHECKING=False && export ANSIBLE_SSH_RETRIES=5
       - run:
           name: Install dependencies
           command: |
@@ -298,7 +298,7 @@ jobs:
       - run:
           name: disable ansible key checking
           command: |
-            export ANSIBLE_HOST_KEY_CHECKING=false && export ANSIBLE_SSH_RETRIES=5
+            export ANSIBLE_HOST_KEY_CHECKING=False && export ANSIBLE_SSH_RETRIES=5
       - run:
           name: Run migrations
           command: |

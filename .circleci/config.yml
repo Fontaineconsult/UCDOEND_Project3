@@ -273,7 +273,7 @@ jobs:
           command: |
             # Your code here
             ls
-            ansible-playbook -v -i -e inventory.txt .circleci/ansible/roles/configure-server/tasks/configure-server.yml
+            ansible-playbook -v -i inventory.txt .circleci/ansible/roles/configure-server/tasks/configure-server.yml
 #      # Here's where you will add some code to rollback on failure
 
   run-migrations:
@@ -303,7 +303,7 @@ jobs:
           name: Run migrations
           command: |
             ls
-             ansible-playbook -v -i -e  inventory.txt .circleci/ansible/roles/deploy-backend/tasks/deploy-backend.yml
+             ansible-playbook -v -i inventory.txt .circleci/ansible/roles/deploy-backend/tasks/deploy-backend.yml
       - run:
           name: Check if migration successful
           command: |

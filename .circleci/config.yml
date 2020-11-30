@@ -297,7 +297,7 @@ jobs:
             cat .circleci/ansible/roles/deploy-backend/files/wid.txt
       - run:
           name: disable ansible key checking
-          command: export ANSIBLE_HOST_KEY_CHECKING=False
+          command: export ANSIBLE_HOST_KEY_CHECKING=False && export ANSIBLE_SSH_RETRIES=5
       - run:
           name: Run migrations
           command: |

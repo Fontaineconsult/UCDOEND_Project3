@@ -27,11 +27,11 @@
     apt:
       update_cache: yes
 
- - name: "Update all packages to the latest version"
-   become: yes
-   apt:
-     name: aptitude
-     upgrade: yes
+  - name: "Update all packages to the latest version"
+    become: yes
+    apt:
+      name: aptitude
+    upgrade: yes
 
   - name: "upgrade packages"
     become: yes

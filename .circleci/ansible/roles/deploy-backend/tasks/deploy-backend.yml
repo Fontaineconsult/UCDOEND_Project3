@@ -23,16 +23,13 @@
       repo: https://github.com/Fontaineconsult/UCDOEND_Project3.git
       dest: ~/project3
 
-
-
-
   - name: Uhgggg
-    command: ~/project3
+    shell: ls ~/project3
     register: dir_out
     debug: dir_out.stdout_lines
 
   - name: Uhgggg1111
-    command: ~/project3/UCDOEND_Project3
+    shell: ls ~/project3/UCDOEND_Project3
     register: dir_out
     debug: dir_out.stdout_lines
 

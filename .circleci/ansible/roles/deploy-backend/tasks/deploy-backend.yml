@@ -18,13 +18,13 @@
   - name: Git Checkout
     git:
       repo: https://github.com/Fontaineconsult/UCDOEND_Project3.git
-      dest: ~/
+      dest: ~/project3
 
   - name: CD Into Backend
     command: cd backend
 
   - name: Take a Look
-    command: ls
+    command: ~/project3
 
   - name: Start Migration
     command: npm run migrations > output.txt

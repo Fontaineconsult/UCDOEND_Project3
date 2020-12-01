@@ -15,6 +15,9 @@
 
   tasks:
 
+  - name: Make Project Folder
+    command: mkdir ~/project3
+
   - name: Git Checkout
     git:
       repo: https://github.com/Fontaineconsult/UCDOEND_Project3.git
@@ -26,8 +29,6 @@
 
   - name: CD Backend
     command: cd ~/project3/backend
-
-
 
 
   - name: CD Take A Look

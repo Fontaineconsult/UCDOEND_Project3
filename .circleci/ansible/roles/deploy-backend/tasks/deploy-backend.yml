@@ -27,34 +27,19 @@
     shell: ls ~/project3
     register: dir_out
 
-  - name: show UGGG
-    debug:
-      var: dir_out.stdout_lines
-
-  - name: Uhgggg1111
-    shell: ls ~/project3/UCDOEND_Project3
-    register: dir_out1
-
-  - name: show ugg111
-    debug:
-      var: dir_out1.stdout_lines
 
   - name: CD Backend
-    shell: cd ~/project3/UCDOEND_Project3/
-
-
-  - name: CD Take A Look
-    shell: ls
+    shell: cd ~/project3/
 
 
   - name: Start Migration
-    shell: npm run ~/project3/UCDOEND_Project3/backend/migrations > output.txt
+    shell: npm run ~/project3/backend/migrations > output.txt
 
   - name: Test
-    shell: ls ~/project3/UCDOEND_Project3/.circleci/ansible/roles/deploy-backend/files
+    shell: ls ~/project3/.circleci/ansible/roles/deploy-backend/files
 
   - name: Test1
-    shell: cat ~/project3/UCDOEND_Project3/.circleci/ansible/roles/deploy-backend/files/wid.txt
+    shell: cat ~/project3/.circleci/ansible/roles/deploy-backend/files/wid.txt
 
   - name: Save ouput to memstash if success
     shell: >

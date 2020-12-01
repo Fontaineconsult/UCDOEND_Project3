@@ -42,6 +42,24 @@
     apt:
       name: npm
 
+  - name: "Install tsc"
+    become: yes
+    npm:
+      global: yes
+      name: tsc
+
+  - name: "Install concurrently"
+    become: yes
+    npm:
+      global: yes
+      name: concurrently
+
+  - name: "Install typescript"
+    become: yes
+    npm:
+      global: yes
+      name: typescript
+
   - name: "Install Pm2"
     become: yes
     npm:

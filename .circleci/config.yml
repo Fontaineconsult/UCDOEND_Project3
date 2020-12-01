@@ -4,19 +4,31 @@ orbs:
   slack: circleci/slack@4.1.1
 
 
-#commands:
-#  destroy-environment:
-#    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-#    parameters:
-#      # Add parameter here
-#    steps:
-#      - run:
-#          name: Destroy environments
-#          when: on_fail
-#          command: |
-#            # Your code here
-#            exit 1
-#
+commands:
+  destroy-environment:
+    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+    parameters:
+      backend-stack-name:
+        default: project3-back-end
+        type: string
+      frontend-stack-name:
+        default: project3-front-end
+        type: string
+    steps:
+      - run:
+          name: Destroy backend
+          when: on_fail
+          command: |
+            aws cloudformation delete-stack \
+              --stack-name project3-back-end-${CIRCLE_WORKFLOW_ID}  \
+
+      - run:
+          name: Destroy frontend
+          when: on_fail
+          command: |
+            aws cloudformation delete-stack \
+              --stack-name project3-front-end-${CIRCLE_WORKFLOW_ID}  \
+
 #  revert-migrations:
 #    description: Revert the last migration if successfully run in the current workflow.
 #    parameters:
@@ -274,7 +286,10 @@ jobs:
             # Your code here
             ls
             ansible-playbook -v -i inventory.txt .circleci/ansible/roles/configure-server/tasks/configure-server.yml
-#      # Here's where you will add some code to rollback on failure
+      - destroy-environment:
+          when: on_fail
+
+  #      # Here's where you will add some code to rollback on failure
 
   run-migrations:
     docker:
@@ -308,6 +323,8 @@ jobs:
           name: Check if migration successful
           command: |
             curl -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request GET https://api.memstash.io/values/${CIRCLE_WORKFLOW_ID}
+      - destroy-environment:
+          when: on_fail
 
 
 

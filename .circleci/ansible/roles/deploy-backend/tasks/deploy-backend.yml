@@ -16,7 +16,7 @@
   tasks:
 
   - name: Make Project Folder
-    command: mkdir ~/project3
+    shell: mkdir ~/project3
 
   - name: Git Checkout
     git:
@@ -24,25 +24,25 @@
       dest: ~/project3
 
   - name: CD Take A Look First
-    command: ls
+    shell: ls
 
 
   - name: CD Backend
-    command: cd ~/project3/backend
+    shell: cd ~/project3
 
 
   - name: CD Take A Look
-    command: ls
+    shell: ls
 
 
   - name: Start Migration
-    command: npm run migrations > output.txt
+    shell: npm run migrations > output.txt
 
   - name: Test
-    command: ls .circleci/ansible/roles/deploy-backend/files
+    shell: ls .circleci/ansible/roles/deploy-backend/files
 
   - name: Test1
-    command: cat .circleci/ansible/roles/deploy-backend/files/wid.txt
+    shell: cat .circleci/ansible/roles/deploy-backend/files/wid.txt
 
   - name: Save ouput to memstash if success
     shell: >

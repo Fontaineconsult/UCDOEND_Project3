@@ -38,7 +38,6 @@
       cd ~/project3/backend
       npm run migrations  > output.txt
 
-  - name
 
   - name: Save ouput to memstash if success
     shell: >

@@ -29,17 +29,11 @@
 
 
   - name: CD Backend
-    shell: cd ~/project3/
+    shell: cd ~/project3/backend
 
 
   - name: Start Migration
-    shell: npm run ~/project3/backend/migrations > output.txt
-
-  - name: Test
-    shell: ls ~/project3/.circleci/ansible/roles/deploy-backend/files
-
-  - name: Test1
-    shell: cat ~/project3/.circleci/ansible/roles/deploy-backend/files/wid.txt
+    shell: npm run migrations > output.txt
 
   - name: Save ouput to memstash if success
     shell: >

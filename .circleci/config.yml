@@ -4,22 +4,22 @@ orbs:
   slack: circleci/slack@4.1.1
 
 
-commands:
-  destroy-environment:
-    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-    docker:
-      - image: amazon/aws-cli
-    steps:
-      - run:
-          name: Destroy backend
-          command: |
-            aws cloudformation delete-stack
-            --stack-name project3-back-end-${CIRCLE_WORKFLOW_ID}
-      - run:
-          name: Destroy frontend
-          command: |
-            aws cloudformation delete-stack
-            --stack-name project3-front-end-${CIRCLE_WORKFLOW_ID}
+#commands:
+#  destroy-environment:
+#    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+#    docker:
+#      - image: amazon/aws-cli
+#    steps:
+#      - run:
+#          name: Destroy backend
+#          command: |
+#            aws cloudformation delete-stack
+#            --stack-name project3-back-end-${CIRCLE_WORKFLOW_ID}
+#      - run:
+#          name: Destroy frontend
+#          command: |
+#            aws cloudformation delete-stack
+#            --stack-name project3-front-end-${CIRCLE_WORKFLOW_ID}
 
 #  revert-migrations:
 #    description: Revert the last migration if successfully run in the current workflow.
@@ -278,10 +278,10 @@ jobs:
             # Your code here
             ls
             ansible-playbook -v -i inventory.txt .circleci/ansible/roles/configure-server/tasks/configure-server.yml
-      - run:
-          name: Cleanup on fail
-          when: on_fail
-          command: destroy-environment
+#      - run:
+#          name: Cleanup on fail
+#          when: on_fail
+#          command: destroy-environment
 
 
   #      # Here's where you will add some code to rollback on failure
@@ -318,11 +318,11 @@ jobs:
           name: Check if migration successful
           command: |
             curl -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request GET https://api.memstash.io/values/${CIRCLE_WORKFLOW_ID}
-      - run:
-          name: Cleanup on fail
-          when: on_fail
-          command: destroy-environment
-
+#      - run:
+#          name: Cleanup on fail
+#          when: on_fail
+#          command: destroy-environment
+#
 
 
 

@@ -28,7 +28,7 @@
 
 
   - name: CD Backend
-    shell: cd ~/project3
+    shell: cd ~/project3/UCDOEND_Project3/
 
 
   - name: CD Take A Look
@@ -36,7 +36,7 @@
 
 
   - name: Start Migration
-    shell: npm run migrations > output.txt
+    shell: npm run /backend/migrations > output.txt
 
   - name: Test
     shell: ls .circleci/ansible/roles/deploy-backend/files

@@ -20,11 +20,19 @@
       repo: https://github.com/Fontaineconsult/UCDOEND_Project3.git
       dest: ~/project3
 
-  - name: CD Into Backend
-    command: cd backend
+  - name: CD Take A Look First
+    command: ls
 
-  - name: Take a Look
-    command: ~/project3
+
+  - name: CD Backend
+    command: cd ~/project3/backend
+
+
+
+
+  - name: CD Take A Look
+    command: ls
+
 
   - name: Start Migration
     command: npm run migrations > output.txt

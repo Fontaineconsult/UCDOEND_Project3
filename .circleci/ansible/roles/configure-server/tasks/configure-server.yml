@@ -32,11 +32,6 @@
     apt:
       name: aptitude
 
-  - name: "upgrade packages"
-    become: yes
-    apt:
-      upgrade: yes
-
   - name: "Install NODEJS"
     become: yes
     apt:

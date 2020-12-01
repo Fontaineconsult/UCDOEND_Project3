@@ -303,7 +303,7 @@ jobs:
           name: Run migrations
           command: |
             ls
-             ansible-playbook -v -i inventory.txt .circleci/ansible/roles/deploy-backend/tasks/deploy-backend.yml
+             ansible-playbook -vvv -i inventory.txt .circleci/ansible/roles/deploy-backend/tasks/deploy-backend.yml
       - run:
           name: Check if migration successful
           command: |

@@ -23,9 +23,18 @@
       repo: https://github.com/Fontaineconsult/UCDOEND_Project3.git
       dest: ~/project3
 
-  - name: CD Take A Look First
-    shell: ls
 
+
+
+  - name: Uhgggg
+      command: ~/project3
+      register: dir_out
+      debug: dir_out.stdout_lines
+
+  - name: Uhgggg1111
+      command: ~/project3/UCDOEND_Project3
+      register: dir_out
+      debug: dir_out.stdout_lines
 
   - name: CD Backend
     shell: cd ~/project3/UCDOEND_Project3/
@@ -36,13 +45,13 @@
 
 
   - name: Start Migration
-    shell: npm run /backend/migrations > output.txt
+    shell: npm run ~/project3/UCDOEND_Project3/backend/migrations > output.txt
 
   - name: Test
-    shell: ls .circleci/ansible/roles/deploy-backend/files
+    shell: ls ~/project3/UCDOEND_Project3/.circleci/ansible/roles/deploy-backend/files
 
   - name: Test1
-    shell: cat .circleci/ansible/roles/deploy-backend/files/wid.txt
+    shell: cat ~/project3/UCDOEND_Project3/.circleci/ansible/roles/deploy-backend/files/wid.txt
 
   - name: Save ouput to memstash if success
     shell: >

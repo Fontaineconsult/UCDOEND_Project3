@@ -27,14 +27,14 @@
 
 
   - name: Uhgggg
-      command: ~/project3
-      register: dir_out
-      debug: dir_out.stdout_lines
+    command: ~/project3
+    register: dir_out
+    debug: dir_out.stdout_lines
 
   - name: Uhgggg1111
-      command: ~/project3/UCDOEND_Project3
-      register: dir_out
-      debug: dir_out.stdout_lines
+    command: ~/project3/UCDOEND_Project3
+    register: dir_out
+    debug: dir_out.stdout_lines
 
   - name: CD Backend
     shell: cd ~/project3/UCDOEND_Project3/

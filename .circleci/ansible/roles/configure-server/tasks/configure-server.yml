@@ -11,7 +11,7 @@
 
   environment:
     ANSIBLE_HOST_KEY_CHECKING: false
-#    ENVIRONMENT: production
+    ENVIRONMENT: production
     TYPEORM_CONNECTION: postgres
     TYPEORM_ENTITIES: ./src/modules/domain/**/*.entity.ts
     TYPEORM_HOST: project3
@@ -21,6 +21,9 @@
     TYPEORM_DATABASE: project3
 
   tasks:
+  - name: "View ENV"
+    shell: |
+      printenv
 
   - name: "update apt packages."
     become: yes

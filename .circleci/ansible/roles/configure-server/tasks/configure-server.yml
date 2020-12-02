@@ -32,10 +32,16 @@
     apt:
       name: aptitude
 
-  - name: "Install NODEJS"
+
+  - name: "Install npm"
     become: yes
     apt:
-      name: nodejs
+      name: npm
+
+  - name: "Install NODEJS"
+    become: yes
+    shell: |
+      curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
 
   - name: "Install npm"
     become: yes

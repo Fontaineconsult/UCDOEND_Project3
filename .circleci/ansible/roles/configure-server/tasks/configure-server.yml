@@ -3,7 +3,7 @@
 - name: "configuration play." 
   hosts: web
   user: ubuntu
-  gather_facts: false
+  gather_facts: true
   vars:
     ansible_python_interpreter: /usr/bin/python3
     ANSIBLE_HOST_KEY_CHECKING: false
@@ -11,7 +11,7 @@
 
   environment:
     ANSIBLE_HOST_KEY_CHECKING: false
-    ENVIRONMENT: production
+#    ENVIRONMENT: production
     TYPEORM_CONNECTION: postgres
     TYPEORM_ENTITIES: ./src/modules/domain/**/*.entity.ts
     TYPEORM_HOST: project3

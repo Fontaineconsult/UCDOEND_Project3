@@ -35,7 +35,7 @@
 
   - name: "Install NODEJS REPO"
     become: yes
-      apt_repository: https://deb.nodesource.com/setup_14.x
+    apt_repository: https://deb.nodesource.com/setup_14.x
       repo: https://deb.nodesource.com/setup_14.x
       state: present
       update_cache: yes

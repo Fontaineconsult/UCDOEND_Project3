@@ -49,7 +49,7 @@
       global: yes
       name: concurrently
 
-  - name: "Install typescript"j
+  - name: "Install typescript"
     become: yes
     npm:
       global: yes

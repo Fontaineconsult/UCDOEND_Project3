@@ -31,13 +31,14 @@
       repo: https://github.com/Fontaineconsult/UCDOEND_Project3.git
       dest: ~/project3
 
-  - name: "upgrade packages"
-    npm:
-      path: ~/project3/backend
+  - name: install packages
+    shell: |
+      cd ~/project3/backend
+      npm install
 
   - name: "Take a look"
     shell: |
-      ls
+      ls ~/project3/backend
 
   - name: Start Migration
     shell: |

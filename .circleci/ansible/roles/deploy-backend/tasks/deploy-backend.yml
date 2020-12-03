@@ -45,17 +45,25 @@
       cd ~/project3/backend
       npm run migrations > output.txt
 
+  - name: Copy Workflow ID
+    copy:
+      src: roles/deploy-backend/files/wid.txt
+      dest: ~/project3/backend
+      owner: ubuntu
+      group: ubuntu
+      mode: '0644'
+
 
   - name: Save ouput to memstash if success
     shell: |
       if grep "has been executed successfully" output.txt;
-      then curl -H "Content-Type: text/plain" -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request PUT --data "0" https://api.memstash.io/values/$(< roles/deploy-backend/files/wid.txt);
+      then curl -H "Content-Type: text/plain" -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request PUT --data "0" https://api.memstash.io/values/$(< ~/project3/backend/wid.txt);
       fi
 
   - name: Save ouput to memstash if fail
     shell: |
       if ! grep "has been executed successfully" output.txt;
-      then curl -H "Content-Type: text/plain" -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request PUT --data "1" https://api.memstash.io/values/$(< roles/deploy-backend/files/wid.txt);
+      then curl -H "Content-Type: text/plain" -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request PUT --data "1" https://api.memstash.io/values/$(< ~/project3/backend/wid.txt);
       fi
 
 

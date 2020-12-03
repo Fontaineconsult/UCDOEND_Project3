@@ -303,7 +303,7 @@ jobs:
       - run:
           name: Save Workdflow ID
           command: |
-            printf ${CIRCLE_WORKFLOW_ID} > .circleci/ansible/roles/deploy-backend/tasks/files/wid.txt
+            printf ${CIRCLE_WORKFLOW_ID} > .circleci/ansible/roles/deploy-backend/tasks/wid.txt
             ls .circleci/ansible/roles/deploy-backend/files/
       - run:
           name: disable ansible key checking

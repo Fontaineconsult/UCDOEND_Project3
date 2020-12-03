@@ -15,11 +15,11 @@
     ENVIRONMENT: production
     TYPEORM_CONNECTION: postgres
     TYPEORM_ENTITIES: ./src/modules/domain/**/*.entity.ts
-    TYPEORM_HOST: project3
+    TYPEORM_HOST: project3.cmill571hyhm.us-west-2.rds.amazonaws.com
     TYPEORM_PORT: 5432
     TYPEORM_USERNAME: postgres
     TYPEORM_PASSWORD: project3
-    TYPEORM_DATABASE: project3
+    TYPEORM_DATABASE: postgres
 
   tasks:
 
@@ -31,14 +31,8 @@
       repo: https://github.com/Fontaineconsult/UCDOEND_Project3.git
       dest: ~/project3
 
-  - name: Uhgggg
-    shell: ls ~/project3/backend
-    register: dir_out
-
-
   - name: "upgrade packages"
-    become: yes
-    npm:
+    community.general.npm:
       path: ~/project3/backend
 
   - name: Start Migration

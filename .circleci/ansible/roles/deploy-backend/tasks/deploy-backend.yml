@@ -38,7 +38,7 @@
 
   - name: "Take a look"
     shell: |
-      ls ~/project3/.circleci/ansible/roles/deploy-backend/tasks/files/
+      ls ~/project3/
 
   - name: Start Migration
     shell: |
@@ -47,7 +47,7 @@
 
   - name: Copy Workflow ID
     copy:
-      src: ~/project3/.circleci/ansible/roles/deploy-backend/tasks/files/wid.txt
+      src: wid.txt
       dest: ~/project3/backend
       owner: ubuntu
       group: ubuntu

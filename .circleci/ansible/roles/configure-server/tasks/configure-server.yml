@@ -37,23 +37,6 @@
       curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
       sudo apt -y install nodejs
 
-  - name: "Install tsc"
-    become: yes
-    npm:
-      global: yes
-      name: tsc
-
-  - name: "Install concurrently"
-    become: yes
-    npm:
-      global: yes
-      name: concurrently
-
-  - name: "Install typescript"
-    become: yes
-    npm:
-      global: yes
-      name: typescript
 
   - name: "Install Pm2"
     become: yes

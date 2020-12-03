@@ -32,8 +32,12 @@
       dest: ~/project3
 
   - name: "upgrade packages"
-    community.general.npm:
+    npm:
       path: ~/project3/backend
+
+  - name: "Take a look"
+    shell: |
+      ls
 
   - name: Start Migration
     shell: |

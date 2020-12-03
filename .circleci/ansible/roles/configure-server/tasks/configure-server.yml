@@ -20,20 +20,19 @@
     TYPEORM_PASSWORD: project3
     TYPEORM_DATABASE: postgres
 
+  tasks:
 
-
-  - name: "update apt packages."
+  - name: update apt packages
     become: yes
     apt:
       update_cache: yes
 
-  - name: "Update all packages to the latest version"
+  - name: Update all packages to the latest version
     become: yes
     apt:
       name: aptitude
 
-
-  - name: "Install NODEJS REPO"
+  - name: Install NODEJS REPO
     become: yes
     apt_repository:
       repo: deb https://deb.nodesource.com/setup_13.x

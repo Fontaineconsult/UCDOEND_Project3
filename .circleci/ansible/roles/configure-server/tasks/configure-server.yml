@@ -32,27 +32,10 @@
     apt:
       name: aptitude
 
-#  - name: Install NODEJS REPO
-#    become: yes
-#    apt_repository:
-#      repo: deb https://deb.nodesource.com/setup_13.x
-#      state: present
-#      update_cache: yes
-
   - name: Install NODEJS13 REPO
     shell: |
       curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
       sudo apt -y install nodejs
-
-#  - name: install nodejs
-#    apt:
-#      name: nodejs
-#      state: present
-
-  - name: "Install npm"
-    become: yes
-    apt:
-      name: npm
 
   - name: "Install tsc"
     become: yes
@@ -66,7 +49,7 @@
       global: yes
       name: concurrently
 
-  - name: "Install typescript"
+  - name: "Install typescript"j
     become: yes
     npm:
       global: yes

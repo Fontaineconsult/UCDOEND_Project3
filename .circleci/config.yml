@@ -300,11 +300,17 @@ jobs:
             - "42:92:62:d5:3e:0b:48:52:4d:ba:39:70:ac:0c:09:eb"
       - attach_workspace:
           at: ~/
+
+
+      - run:
+          name: Install NPM Modules
+          command: |
+            cd backend
+            npm install
       - run:
           name: Run Migrations
           command: |
             cd backend
-            npm install
             npm run migrations > output.txt
       - run:
           name: Send status to memstash

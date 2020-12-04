@@ -279,15 +279,10 @@ jobs:
             ls
             ansible-playbook -v -i inventory.txt .circleci/ansible/roles/configure-server/tasks/configure-server.yml
 
-
-
-
 #      - run:
 #          name: Cleanup on fail
 #          when: on_fail
 #          command: destroy-environment
-
-
   #      # Here's where you will add some code to rollback on failure
 
   run-migrations:
@@ -300,8 +295,6 @@ jobs:
             - "42:92:62:d5:3e:0b:48:52:4d:ba:39:70:ac:0c:09:eb"
       - attach_workspace:
           at: ~/
-
-
       - run:
           name: Install NPM Modules
           command: |
@@ -332,32 +325,42 @@ jobs:
 #          when: on_fail
 #          command: destroy-environment
 #
-
-
-
-
      # Here's where you will add some code to rollback on failure
-#
-#  deploy-frontend:
-#    docker:
-#      # Docker image here that supports AWS CLI
-#    steps:
-#      # Checkout code from git
-#      - run:
-#          name: Install dependencies
-#          command: |
-#            # your code here
-#      - run:
-#          name: Get backend url
-#          command: |
-#            # your code here
-#            export API_URL="http://${BACKEND_IP}:3030"
-#            echo "${API_URL}"
-#      - run:
-#          name: Deploy frontend objects
-#          command: |
-#            # your code here
-#      # Here's where you will add some code to rollback on failure
+
+  deploy-frontend:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get install nodejs
+      - run:
+          name: Get backend url
+          command: |
+            BACKEND_IP=$(tail -n 1 inventory.txt)
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo "${API_URL}"
+      - run:
+          name: Install Dependencies
+          command: |
+            cd frontend
+            npm install
+      - run:
+          name: npm build
+          command: |
+            cd frontend
+            npm run build
+      - run:
+          name: take a look
+          command: |
+            ls
+
+
+      # Here's where you will add some code to rollback on failure
 #
 #  deploy-backend:
 #    docker:

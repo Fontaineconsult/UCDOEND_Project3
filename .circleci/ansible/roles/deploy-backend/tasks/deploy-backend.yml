@@ -52,19 +52,23 @@
       group: ubuntu
       mode: '0644'
 
+  - name: "Take a look"
+    shell: |
+      ls ~/project3/backend
+      cat ~/project3/backend/wid.txt
 
   - name: Save ouput to memstash if success
     shell: |
       cd ~/project3/backend
       if grep "has been executed successfully" output.txt;
-      then curl -H "Content-Type: text/plain" -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request PUT --data "0" https://api.memstash.io/values/1234565;
+      then curl -H "Content-Type: text/plain" -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request PUT --data "0" https://api.memstash.io/values/$(< ~/project3/backend/wid.txt);
       fi
 
   - name: Save ouput to memstash if fail
     shell: |
       cd ~/project3/backend
       if ! grep "has been executed successfully" output.txt;
-      then curl -H "Content-Type: text/plain" -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request PUT --data "1" https://api.memstash.io/values/1234565;
+      then curl -H "Content-Type: text/plain" -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request PUT --data "1" https://api.memstash.io/values/$(< ~/project3/backend/wid.txt);
       fi
 
 

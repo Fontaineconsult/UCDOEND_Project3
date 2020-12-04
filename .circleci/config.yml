@@ -304,6 +304,7 @@ jobs:
           name: Run Migrations
           command: |
             cd backend
+            npm install
             npm run migrations > output.txt
       - run:
           name: Send status to memstash

@@ -57,14 +57,14 @@
     shell: |
       cd ~/project3/backend
       if grep "has been executed successfully" output.txt;
-      then curl -H "Content-Type: text/plain" -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request PUT --data "0" https://api.memstash.io/values/$(< ~/project3/backend/wid.txt);
+      then curl -H "Content-Type: text/plain" -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request PUT --data "0" https://api.memstash.io/values/1234565;
       fi
 
   - name: Save ouput to memstash if fail
     shell: |
       cd ~/project3/backend
       if ! grep "has been executed successfully" output.txt;
-      then curl -H "Content-Type: text/plain" -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request PUT --data "1" https://api.memstash.io/values/$(< ~/project3/backend/wid.txt);
+      then curl -H "Content-Type: text/plain" -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request PUT --data "1" https://api.memstash.io/values/1234565;
       fi
 
 

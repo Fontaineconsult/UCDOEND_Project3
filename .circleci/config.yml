@@ -335,11 +335,11 @@ jobs:
       - run:
           name: Install dependencies
           command: |
+            yum install -y tar
+            yum install -y gzip
             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
             . ~/.nvm/nvm.sh
             nvm install node
-            yum install -y tar
-            yum install -y gzip
       - attach_workspace:
           at: ~/
       - run:
@@ -454,14 +454,14 @@ workflows:
 #          requires: [build-backend]
 #      - scan-frontend:
 #          requires: [build-frontend]
-      - deploy-infrastructure
+#      - deploy-infrastructure
 #          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-      - configure-infrastructure:
-          requires: [deploy-infrastructure]
-      - run-migrations:
-          requires: [configure-infrastructure]
-      - deploy-frontend:
-          requires: [run-migrations]
+#      - configure-infrastructure:
+#          requires: [deploy-infrastructure]
+#      - run-migrations:
+#          requires: [configure-infrastructure]
+      - deploy-frontend
+#          requires: [run-migrations]
 #      - deploy-backend:
 #          requires: [run-migrations]
 #      - smoke-test:

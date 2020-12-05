@@ -332,13 +332,13 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/
       - run:
           name: Install dependencies
           command: |
             sudo apt-get install nodejs
             sudo apt-get install tar
+      - attach_workspace:
+          at: ~/
       - run:
           name: Get backend url
           command: |

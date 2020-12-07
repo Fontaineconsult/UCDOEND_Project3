@@ -341,19 +341,16 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          name: Get backend url
-          command: |
-            BACKEND_IP=$(tail -n 1 inventory.txt)
-            export API_URL="http://${BACKEND_IP}:3030"
-            echo "${API_URL}"
-      - run:
-          name: Install Dependencies
+          name: NPM Install
           command: |
             cd frontend
             npm install
       - run:
           name: npm build
           command: |
+            BACKEND_IP=$(tail -n 1 inventory.txt)
+            EXPORT API_URL="http://${BACKEND_IP}:3030"
+            echo "${API_URL}"
             cd frontend
             npm run build
       - run:

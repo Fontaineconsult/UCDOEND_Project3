@@ -335,6 +335,8 @@ jobs:
       - run:
           name: Install NVM
           command: |
+            npm install tar
+            npm install gzip
             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
             echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
             echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV

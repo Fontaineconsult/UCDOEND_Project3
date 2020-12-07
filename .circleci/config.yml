@@ -329,13 +329,15 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: amazon/aws-cli
+      - image: circleci/python:latest
     steps:
       - checkout
       - run:
           name: Install NVM
           command: |
-            hostnamectl
+            apt-get install node
+            apt-get install npm
+            pip install awscli
       - attach_workspace:
           at: ~/
       - run:

@@ -335,10 +335,10 @@ jobs:
       - run:
           name: Install NVM
           command: |
-            yum install tar
-            yum install gzip
-            yum install nodejs
-            yum install npm
+            sudo yum install tar
+            sudo yum install gzip
+            sudo yum install nodejs
+            sudo yum install npm
 
       - attach_workspace:
           at: ~/

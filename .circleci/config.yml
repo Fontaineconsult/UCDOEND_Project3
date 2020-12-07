@@ -329,13 +329,17 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: amazon/aws-cli
     steps:
       - checkout
       - run:
-          name: Install AWSCLI
+          name: Install NVM
           command: |
-            pip install awscli
+            pkexec dpkg -i apt.deb
+            apt-get install tar
+            apt-get install gzip
+            apt-get install nodejs
+            apt-get install npm
 
       - attach_workspace:
           at: ~/

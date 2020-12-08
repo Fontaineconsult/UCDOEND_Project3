@@ -356,7 +356,11 @@ jobs:
       - run:
           name: take a look
           command: |
-            ls
+            ls frontend
+      - run:
+          name: copy files
+          command: |
+            aws s3 cp frontend/.dist s3://udapeople-fdde35e9-5ace-4983-9f35-1ad410f5fbcf
 
 
       # Here's where you will add some code to rollback on failure

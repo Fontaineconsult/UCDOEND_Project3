@@ -11,11 +11,11 @@
   tasks:
 
     - name: Move Files
-        copy:
-          src: /dist
-          dest: ~/dist
+      copy:
+        src: /dist
+        dest: ~/dist
 
     - name: Take a look
-        shell:
-          ls
+      shell:
+        ls
 

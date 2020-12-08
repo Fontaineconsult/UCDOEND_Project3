@@ -12,7 +12,7 @@
 
     - name: Move Files
       copy:
-        src: /files/dist
+        src: roles/deploy-backend/files/dist
         dest: ~/dist
 
     - name: Take a look

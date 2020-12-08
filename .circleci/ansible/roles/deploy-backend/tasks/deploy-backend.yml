@@ -13,7 +13,7 @@
     - name: Move Files
       copy:
         src: "{{ item }}"
-        dest: ~/dist
+        dest: ~/dist/
       with_fileglob:
         - dist/*
 

@@ -361,25 +361,33 @@ jobs:
           name: copy files
           command: |
             aws s3 cp frontend/dist s3://udapeople-${CIRCLE_WORKFLOW_ID} --recursive
-
-
       # Here's where you will add some code to rollback on failure
-#
-#  deploy-backend:
-#    docker:
-#      # Docker image here that supports Ansible
-#    steps:
-#      # Checkout code from git
-#      # Add ssh keys with fingerprint
-#      # attach workspace
-#      - run:
-#          name: Install dependencies
-#          command: |
-#            # your code here
-#      - run:
-#          name: Deploy backend
-#          command: |
-#            # your code here
+
+  deploy-backend:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "42:92:62:d5:3e:0b:48:52:4d:ba:39:70:ac:0c:09:eb"
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get install ansible
+      - run:
+          name: Build Backend
+          command: |
+            cd backend
+            npm install
+            npm run build
+      - run:
+          name: Copy Backend
+          command: |
+            cp -R backend/dist .circleci/ansible/roles/deploy-backend/files/dist
+            ansible-playbook -v -i inventory.txt .circleci/ansible/roles/configure-server/tasks/deploy-server.yml
 #      # Here's where you will add some code to rollback on failure
 #
 #  smoke-test:

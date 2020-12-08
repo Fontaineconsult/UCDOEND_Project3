@@ -1,74 +1,21 @@
-
 ---
-- name: "deploy play."
+- name: "configuration play."
   hosts: web
   user: ubuntu
   gather_facts: false
   vars:
     - ansible_python_interpreter: /usr/bin/python3
-    - ANSIBLE_HOST_KEY_CHECKING: false
+    - ansible_host_key_checking: false
     - ansible_stdout_callback: yaml
-
-  environment:
-    ANSIBLE_HOST_KEY_CHECKING: false
-    ENVIRONMENT: production
-    TYPEORM_CONNECTION: postgres
-    TYPEORM_ENTITIES: ./src/modules/domain/**/*.entity.ts
-    TYPEORM_HOST: project3.cmill571hyhm.us-west-2.rds.amazonaws.com
-    TYPEORM_PORT: 5432
-    TYPEORM_USERNAME: postgres
-    TYPEORM_PASSWORD: project3
-    TYPEORM_DATABASE: postgres
 
   tasks:
 
-  - name: Make Project Folder
-    shell: mkdir ~/project3
+    - name: Move Files
+        copy:
+          src: /dist
+          dest: ~/dist
 
-  - name: Git Checkout
-    git:
-      repo: https://github.com/Fontaineconsult/UCDOEND_Project3.git
-      dest: ~/project3
-
-  - name: install packages
-    shell: |
-      cd ~/project3/backend
-      npm install
-
-  - name: "Take a look"
-    shell: |
-      ls ~/project3/
-
-  - name: Start Migration
-    shell: |
-      cd ~/project3/backend
-      npm run migrations > output.txt
-
-  - name: Copy Workflow ID
-    copy:
-      src: wid.txt
-      dest: ~/project3/backend
-      owner: ubuntu
-      group: ubuntu
-      mode: '0644'
-
-  - name: "Take a look"
-    shell: |
-      ls ~/project3/backend
-      cat ~/project3/backend/wid.txt
-
-  - name: Save ouput to memstash if success
-    shell: |
-      cd ~/project3/backend
-      if grep "has been executed successfully" output.txt;
-      then curl -H "Content-Type: text/plain" -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request PUT --data "0" https://api.memstash.io/values/$(< wid.txt);
-      fi
-
-  - name: Save ouput to memstash if fail
-    shell: |
-      cd ~/project3/backend
-      if ! grep "has been executed successfully" output.txt;
-      then curl -H "Content-Type: text/plain" -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request PUT --data "1" https://api.memstash.io/values/$(< wid.txt);
-      fi
-
+    - name: Take a look
+        shell:
+          ls
 

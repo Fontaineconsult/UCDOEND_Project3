@@ -388,7 +388,7 @@ jobs:
           name: Copy Backend
           command: |
             cp -R backend/dist .circleci/ansible/roles/deploy-backend/files/dist
-            ansible-playbook -v -i inventory.txt .circleci/ansible/roles/configure-server/tasks/deploy-server.yml
+            ansible-playbook -v -i inventory.txt .circleci/ansible/roles/configure-server/tasks/deploy-backend.yml
 #      # Here's where you will add some code to rollback on failure
 #
 #  smoke-test:

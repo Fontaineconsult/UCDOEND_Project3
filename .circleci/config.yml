@@ -390,7 +390,7 @@ jobs:
             ls backend/dist
             cp -R backend/dist .circleci/ansible/roles/deploy-backend/files/dist
             ls .circleci/ansible/roles/deploy-backend/files/dist
-            ansible-playbook -vvvv -i inventory.txt .circleci/ansible/roles/deploy-backend/tasks/deploy-backend.yml
+            ansible-playbook -vvvvv -i inventory.txt .circleci/ansible/roles/deploy-backend/tasks/deploy-backend.yml
 #      # Here's where you will add some code to rollback on failure
 #
 #  smoke-test:

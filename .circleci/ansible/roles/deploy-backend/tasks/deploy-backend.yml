@@ -12,8 +12,10 @@
 
     - name: Move Files
       copy:
-        src: roles/deploy-backend/files/dist
+        src: {{ item }}
         dest: ~/dist
+      with_fileglob:
+        - dist/*
 
     - name: Take a look
       shell:

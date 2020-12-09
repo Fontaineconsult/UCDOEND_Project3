@@ -26,7 +26,11 @@
       shell:
         cd backend
         mkdir dist
-        unzip dist.zip -d ./dist
+        unzip dist.zip -d .
+
+    - name: take a look
+      shell:
+        ls
 
 
     - name: Start PM2
@@ -42,5 +46,5 @@
         TYPEORM_DATABASE: postgres
 
       shell:
-        cd backend/dist
+        cd backend
         pm2 start main.js

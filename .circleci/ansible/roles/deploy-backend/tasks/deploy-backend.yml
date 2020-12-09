@@ -28,7 +28,7 @@
         npm install
 
 
-    - name: Start PM2
-      shell:
-        cd backend
-        pm2 start main.js
+#    - name: Start PM2
+#      shell:
+#        cd backend/dist
+#        pm2 start main.js

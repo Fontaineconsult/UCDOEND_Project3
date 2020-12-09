@@ -378,18 +378,27 @@ jobs:
           name: Install dependencies
           command: |
             sudo apt-get install ansible
+            sudo apt install zip unzip
       - run:
           name: Build Backend
           command: |
             cd backend
             npm install
             npm run build
+
+      - run:
+          name: Package Build
+          command: |
+            cd backend
+            zip -r dist.zip dist/*
+
+
       - run:
           name: Copy Backend
           command: |
-            ls backend/dist
-            cp -R backend/ .circleci/ansible/roles/deploy-backend/tasks/files/backend
-            ls .circleci/ansible/roles/deploy-backend/tasks/files/backend
+            cd backend
+            cp dist.zip .circleci/ansible/roles/deploy-backend/tasks/files
+            ls .circleci/ansible/roles/deploy-backend/tasks/files
             ansible-playbook -vvvvv -i inventory.txt .circleci/ansible/roles/deploy-backend/tasks/deploy-backend.yml
 #      # Here's where you will add some code to rollback on failure
 #

@@ -9,16 +9,6 @@
     ANSIBLE_HOST_KEY_CHECKING: false
     ansible_stdout_callback: yaml
 
-  environment:
-    ANSIBLE_HOST_KEY_CHECKING: false
-    ENVIRONMENT: production
-    TYPEORM_CONNECTION: postgres
-    TYPEORM_ENTITIES: ./src/modules/domain/**/*.entity.ts
-    TYPEORM_HOST: project3.cmill571hyhm.us-west-2.rds.amazonaws.com
-    TYPEORM_PORT: 5432
-    TYPEORM_USERNAME: postgres
-    TYPEORM_PASSWORD: project3
-    TYPEORM_DATABASE: postgres
 
   tasks:
 

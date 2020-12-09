@@ -10,25 +10,37 @@
 
   tasks:
 
+
     - name: Move Files
       copy:
-        src: "{{ item }}"
+        src: dist.zip
         dest: ~/backend/
-      with_fileglob:
-        - backend/*
+
 
 
     - name: Take a look
       shell:
         ls backend
 
-    - name: Take a look
+    - name: Unzip
       shell:
         cd backend
-        npm install
+        mkdir dist
+        unzip dist.zip -d ./dist
 
 
-#    - name: Start PM2
-#      shell:
-#        cd backend/dist
-#        pm2 start main.js
+    - name: Start PM2
+      environment:
+        ANSIBLE_HOST_KEY_CHECKING: false
+        ENVIRONMENT: production
+        TYPEORM_CONNECTION: postgres
+        TYPEORM_ENTITIES: ./src/modules/domain/**/*.entity.ts
+        TYPEORM_HOST: project3.cmill571hyhm.us-west-2.rds.amazonaws.com
+        TYPEORM_PORT: 5432
+        TYPEORM_USERNAME: postgres
+        TYPEORM_PASSWORD: project3
+        TYPEORM_DATABASE: postgres
+
+      shell:
+        cd backend/dist
+        pm2 start main.js

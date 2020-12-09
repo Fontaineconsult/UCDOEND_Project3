@@ -13,11 +13,22 @@
     - name: Move Files
       copy:
         src: "{{ item }}"
-        dest: ~/dist/
+        dest: ~/backend/
       with_fileglob:
-        - dist/*
+        - backend/*
+
 
     - name: Take a look
       shell:
-        ls
+        ls backend
 
+    - name: Take a look
+      shell:
+        cd backend
+        npm install
+
+
+    - name: Start PM2
+      shell:
+        cd backend
+        pm2 start main.js

@@ -404,7 +404,7 @@ jobs:
 
   smoke-test:
     docker:
-      - image: circleci/alpine:latest
+      - image: circleci/alpine
     steps:
       # Checkout code from git
       - run:

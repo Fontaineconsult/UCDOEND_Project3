@@ -403,7 +403,7 @@ jobs:
 
             cp backend.zip .circleci/ansible/roles/deploy-backend/tasks/files/backend.zip
             ls .circleci/ansible/roles/deploy-backend/tasks/files
-            ansible-playbook -vvvvv -i ../inventory.txt ../.circleci/ansible/roles/deploy-backend/tasks/deploy-backend.yml
+            ansible-playbook -vvvvv -i inventory.txt .circleci/ansible/roles/deploy-backend/tasks/deploy-backend.yml
 #      # Here's where you will add some code to rollback on failure
 #
 #  smoke-test:

@@ -19,19 +19,23 @@
 
 
     - name: Take a look
-      shell:
+      shell: |
         ls backend
 
     - name: Unzip
-      shell:
+      shell: |
         cd backend
         mkdir dist
         unzip dist.zip -d .
 
     - name: take a look
-      shell:
-        ls
+      shell: |
+        ls backend\dist
 
+    - name: Install Dependences
+      shell: |
+        cd backend\dist
+        npm install
 
     - name: Start PM2
       environment:
@@ -45,6 +49,17 @@
         TYPEORM_PASSWORD: project3
         TYPEORM_DATABASE: postgres
 
-      shell:
-        cd backend
+      shell: |
+
+        export ENVIRONMENT=production
+        export CONNECTION=postgres
+        export TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts
+        export TYPEORM_HOST=project3.cmill571hyhm.us-west-2.rds.amazonaws.com
+        export TYPEORM_PORT=5432
+        export TYPEORM_USERNAME=postgres
+        export TYPEORM_PASSWORD=project3
+        export TYPEORM_DATABASE=postgres
+        printenv
+        cd backend/dist
+
         pm2 start main.js

@@ -24,6 +24,11 @@
     apt:
       name: aptitude
 
+  - name: Install Unzip
+    become: yes
+    apt:
+      name: unzip
+
   - name: Install NODEJS13 REPO
     shell: |
       curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -

@@ -30,11 +30,11 @@
 
     - name: take a look
       shell: |
-        ls backend\dist
+        ls backend/dist
 
     - name: Install Dependences
       shell: |
-        cd backend\dist
+        cd backend/dist
         npm install
 
     - name: Start PM2

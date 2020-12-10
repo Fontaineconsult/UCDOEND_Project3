@@ -382,7 +382,7 @@ jobs:
 
       - run:
           name: Set ENVS
-          command: :
+          command: |
             echo ENVIRONMENT=production > "backend/.env"
             echo TYPEORM_CONNECTION=postgres >> "backend/.env"
             echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> "backend/.env"

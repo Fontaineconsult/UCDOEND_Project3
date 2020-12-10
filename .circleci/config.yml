@@ -404,7 +404,7 @@ jobs:
 
   smoke-test:
     docker:
-      - image: circleci/alpine
+      - image: cimg/base:2020.01
     steps:
       # Checkout code from git
       - run:

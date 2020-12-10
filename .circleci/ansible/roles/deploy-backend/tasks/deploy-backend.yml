@@ -13,7 +13,7 @@
 
     - name: Move Files
       copy:
-        src: dist.zip
+        src: backend.zip
         dest: ~/backend/
 
 
@@ -25,16 +25,16 @@
     - name: Unzip
       shell: |
         cd backend
-        mkdir dist
-        unzip dist.zip -d .
+        mkdir backend
+        unzip backend.zip -d .
 
     - name: take a look
       shell: |
-        ls backend/dist
+        ls backend/backend
 
     - name: Install Dependences
       shell: |
-        cd backend/dist
+        cd backend/backend
         npm install
 
     - name: Start PM2
@@ -60,6 +60,5 @@
         export TYPEORM_PASSWORD=project3
         export TYPEORM_DATABASE=postgres
         printenv
-        cd backend/dist
-
+        cd backend/backend/dist
         pm2 start main.js

@@ -10,13 +10,10 @@
 
   tasks:
 
-
     - name: Move Files
       copy:
         src: backend.zip
         dest: ~/backend/
-
-
 
     - name: Take a look
       shell: |
@@ -50,15 +47,6 @@
         TYPEORM_DATABASE: postgres
 
       shell: |
-
-        export ENVIRONMENT=production
-        export CONNECTION=postgres
-        export TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts
-        export TYPEORM_HOST=project3.cmill571hyhm.us-west-2.rds.amazonaws.com
-        export TYPEORM_PORT=5432
-        export TYPEORM_USERNAME=postgres
-        export TYPEORM_PASSWORD=project3
-        export TYPEORM_DATABASE=postgres
         printenv
-        cd backend/backend/dist
-        pm2 start main.js
+        cd backend/backend/
+        pm2 start --name "backend" npm -- start

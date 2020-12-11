@@ -11,7 +11,16 @@ commands:
       destroy-env:
         default: "Yes"
         type: string
+
+
+
     steps:
+      - run:
+          name: Install AWS CLI
+          when: on_fail
+          command: |
+            sudo apt-get install awscli
+
       - run:
           name: Destroy backend
           when: on_fail

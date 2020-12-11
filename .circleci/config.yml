@@ -7,8 +7,6 @@ orbs:
 commands:
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-    docker:
-      - image: amazon/aws-cli
     parameters:
       destroy-env:
         default: "Yes"
@@ -60,14 +58,11 @@ jobs:
             cd frontend
             npm install
             npm run build
-            exit 1
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
 
-      - destroy-environment:
-          destroy-env: "yes"
-          when: on_fail
+
       - slack/notify:
           channel: general
           event: fail
@@ -244,10 +239,14 @@ jobs:
             aws cloudformation delete-stack --stack-name << parameters.backend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
             aws cloudformation delete-stack --stack-name << parameters.frontend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
 
-#      - slack/notify:
-#          event: fail
-#          channel: general
-#          template: basic_fail_1
+      - destroy-environment:
+          destroy-env: "yes"
+          when: on_fail
+
+      - slack/notify:
+          event: fail
+          channel: general
+          template: basic_fail_1
 
 
 #       Here's where you will add some code to rollback on failure
@@ -289,10 +288,7 @@ jobs:
             ls
             ansible-playbook -v -i inventory.txt .circleci/ansible/roles/configure-server/tasks/configure-server.yml
 
-#      - run:
-#          name: Cleanup on fail
-#          when: on_fail
-#          command: destroy-environment
+
   #      # Here's where you will add some code to rollback on failure
 
   run-migrations:
@@ -329,7 +325,6 @@ jobs:
           name: Check if migration successful
           command: |
             curl -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request GET https://api.memstash.io/values/${CIRCLE_WORKFLOW_ID}
-
 #      - run:
 #          name: Cleanup on fail
 #          when: on_fail
@@ -372,6 +367,7 @@ jobs:
           command: |
             ls
             aws s3 cp frontend/dist s3://udapeople-${CIRCLE_WORKFLOW_ID} --recursive
+
       # Here's where you will add some code to rollback on failure
 
   deploy-backend:
@@ -453,35 +449,39 @@ jobs:
     docker:
       - image: amazon/aws-cli
     steps:
-      # Checkout code from git
-      - run:
-          name: Install dependencies
-          command: |
-            # your code here
+#      # Checkout code from git
+#      - run:
+#          name: Install dependencies
+#          command: |
+#            # your code here
       - run:
           name: Update cloudfront distribution
           command: |
-            # your code here
-      # Here's where you will add some code to rollback on failure
+            aws cloudformation deploy \
+              --template-file .circleci/files/cloudfront.yml \
+              --tags project=project3-cloudfront \
+              --stack-name project3-cloudfront-${CIRCLE_WORKFLOW_ID} \
+              --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
 
-#cleanup:
-#    docker:
-#      # Docker image here
-#    steps:
-#      # Checkout code from git
-#      - run:
-#          name: Get old stack workflow id
-#          command: |
-#            # your code here
-#            export OldWorkflowID="the id here"
-#            export STACKS=[] #put the list of stacks here
-#      - run:
-#          name: Remove old stacks and files
-#          command: |
-#            if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
-#            then
+
+#  cleanup:
+#      docker:
+#        - image: amazon/aws-cli
+#      steps:
+#        # Checkout code from git
+#        - run:
+#            name: Get old stack workflow id
+#            command: |
 #              # your code here
-#            fi
+#              export OldWorkflowID="the id here"
+#              export STACKS=[] #put the list of stacks here
+#        - run:
+#            name: Remove old stacks and files
+#            command: |
+#              if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
+#              then
+#                # your code here
+#              fi
 #
 
 workflows:
@@ -509,7 +509,7 @@ workflows:
            requires: [run-migrations] # fix this to run-migrations
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
-#      - cloudfront-update:
-#          requires: [smoke-test]
+      - cloudfront-update:
+          requires: [smoke-test]
 #      - cleanup:
 #          requires: [cloudfront-update]

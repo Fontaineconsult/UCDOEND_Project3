@@ -239,8 +239,8 @@ jobs:
             aws cloudformation delete-stack --stack-name << parameters.backend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
             aws cloudformation delete-stack --stack-name << parameters.frontend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
 
-      - run:
-          destroy-environment:
+
+      - destroy-environment:
           when: on_fail
 
       - slack/notify:

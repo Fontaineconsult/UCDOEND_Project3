@@ -239,8 +239,8 @@ jobs:
             aws cloudformation delete-stack --stack-name << parameters.backend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
             aws cloudformation delete-stack --stack-name << parameters.frontend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
 
-      - destroy-environment:
-          destroy-env: "yes"
+      - run:
+          destroy-environment:
           when: on_fail
 
       - slack/notify:
@@ -326,9 +326,9 @@ jobs:
           command: |
             curl -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request GET https://api.memstash.io/values/${CIRCLE_WORKFLOW_ID}
 #      - run:
-#          name: Cleanup on fail
+#          destroy-environment:
 #          when: on_fail
-#          command: destroy-environment
+
 #
      # Here's where you will add some code to rollback on failure
 

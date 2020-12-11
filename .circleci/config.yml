@@ -17,11 +17,13 @@ commands:
           command: |
             aws cloudformation delete-stack
             --stack-name project3-back-end-${CIRCLE_WORKFLOW_ID}
+          when: on_fail
       - run:
           name: Destroy frontend
           command: |
             aws cloudformation delete-stack
             --stack-name project3-front-end-${CIRCLE_WORKFLOW_ID}
+          when: on_fail
 
 #  revert-migrations:
 #    description: Revert the last migration if successfully run in the current workflow.
@@ -240,8 +242,7 @@ jobs:
             aws cloudformation delete-stack --stack-name << parameters.frontend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
 
 
-      - destroy-environment:
-          event: fail
+      - destroy-environment
 
       - slack/notify:
           event: fail

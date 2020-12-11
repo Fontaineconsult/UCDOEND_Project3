@@ -241,7 +241,7 @@ jobs:
 
 
       - destroy-environment:
-          when: on_fail
+          event: fail
 
       - slack/notify:
           event: fail

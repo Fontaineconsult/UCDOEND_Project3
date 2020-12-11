@@ -363,7 +363,7 @@ jobs:
           name: npm build
           command: |
             BACKEND_IP=$(tail -n 1 inventory.txt)
-            export API_URL="http://${BACKEND_IP}:3030"
+            export API_URL="http://${BACKEND_IP}:3030""
             echo "${API_URL}"
             cd frontend
             npm run build

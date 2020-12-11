@@ -4,22 +4,26 @@ orbs:
   slack: circleci/slack@4.1.1
 
 
-#commands:
-#  destroy-environment:
-#    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-#    docker:
-#      - image: amazon/aws-cli
-#    steps:
-#      - run:
-#          name: Destroy backend
-#          command: |
-#            aws cloudformation delete-stack
-#            --stack-name project3-back-end-${CIRCLE_WORKFLOW_ID}
-#      - run:
-#          name: Destroy frontend
-#          command: |
-#            aws cloudformation delete-stack
-#            --stack-name project3-front-end-${CIRCLE_WORKFLOW_ID}
+commands:
+  destroy-environment:
+    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+    docker:
+      - image: amazon/aws-cli
+    parameters:
+      destroy-env:
+        default: "Yes"
+        type: string
+    steps:
+      - run:
+          name: Destroy backend
+          command: |
+            aws cloudformation delete-stack
+            --stack-name project3-back-end-${CIRCLE_WORKFLOW_ID}
+      - run:
+          name: Destroy frontend
+          command: |
+            aws cloudformation delete-stack
+            --stack-name project3-front-end-${CIRCLE_WORKFLOW_ID}
 
 #  revert-migrations:
 #    description: Revert the last migration if successfully run in the current workflow.
@@ -56,10 +60,14 @@ jobs:
             cd frontend
             npm install
             npm run build
+            exit 1
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
 
+      - destroy-environment:
+          destroy-env: "yes"
+          when: on_fail
       - slack/notify:
           channel: general
           event: fail
@@ -416,6 +424,7 @@ jobs:
       - run:
           name: Get backend url
           command: |
+            ls
             BACKEND_IP=$(tail -n 1 inventory.txt)
             export API_URL="http://${BACKEND_IP}:3030/api/status
             echo "${API_URL}"
@@ -439,22 +448,22 @@ jobs:
             return 0
             fi
       # Here's where you will add some code to rollback on failure
-#
-#  cloudfront-update:
-#    docker:
-#      # Docker image here that supports AWS CLI
-#    steps:
-#      # Checkout code from git
-#      - run:
-#          name: Install dependencies
-#          command: |
-#            # your code here
-#      - run:
-#          name: Update cloudfront distribution
-#          command: |
-#            # your code here
-#      # Here's where you will add some code to rollback on failure
-#
+
+  cloudfront-update:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      # Checkout code from git
+      - run:
+          name: Install dependencies
+          command: |
+            # your code here
+      - run:
+          name: Update cloudfront distribution
+          command: |
+            # your code here
+      # Here's where you will add some code to rollback on failure
+
 #cleanup:
 #    docker:
 #      # Docker image here
@@ -478,28 +487,28 @@ jobs:
 workflows:
   default:
     jobs:
-#      - build-frontend
-#      - build-backend
-#      - test-frontend:
-#          requires: [build-frontend]
-#      - test-backend:
-#          requires: [build-backend]
-#      - scan-backend:
-#          requires: [build-backend]
-#      - scan-frontend:
-#          requires: [build-frontend]
-#      - deploy-infrastructure:
-#          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-#      - configure-infrastructure:
-#          requires: [deploy-infrastructure]
-#      - run-migrations:
-#          requires: [configure-infrastructure]
-#      - deploy-frontend:
-#          requires: [run-migrations]
-#      - deploy-backend:
-#           requires: [run-migrations] # fix this to run-migrations
-      - smoke-test
-#          requires: [deploy-backend, deploy-frontend]
+      - build-frontend
+      - build-backend
+      - test-frontend:
+          requires: [build-frontend]
+      - test-backend:
+          requires: [build-backend]
+      - scan-backend:
+          requires: [build-backend]
+      - scan-frontend:
+          requires: [build-frontend]
+      - deploy-infrastructure:
+          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+      - configure-infrastructure:
+          requires: [deploy-infrastructure]
+      - run-migrations:
+          requires: [configure-infrastructure]
+      - deploy-frontend:
+          requires: [run-migrations]
+      - deploy-backend:
+           requires: [run-migrations] # fix this to run-migrations
+      - smoke-test:
+          requires: [deploy-backend, deploy-frontend]
 #      - cloudfront-update:
 #          requires: [smoke-test]
 #      - cleanup:

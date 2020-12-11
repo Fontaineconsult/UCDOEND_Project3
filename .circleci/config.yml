@@ -290,6 +290,7 @@ jobs:
             ls
             ansible-playbook -v -i inventory.txt .circleci/ansible/roles/configure-server/tasks/configure-server.yml
 
+
       - slack/notify:
           event: fail
           channel: general

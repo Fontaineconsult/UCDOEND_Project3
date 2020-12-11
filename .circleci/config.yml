@@ -32,6 +32,9 @@ commands:
           name: Destroy frontend
           when: on_fail
           command: |
+            aws s3 rm "s3://udapeople-${CIRCLE_WORKFLOW_ID}" --recursive
+
+
             aws cloudformation delete-stack \
             --stack-name project3-front-end-${CIRCLE_WORKFLOW_ID}
 
@@ -299,7 +302,7 @@ jobs:
             ls
             ansible-playbook -v -i inventory.txt .circleci/ansible/roles/configure-server/tasks/configure-server.yml
 
-
+      - destroy-environment
       - slack/notify:
           event: fail
           channel: general
@@ -340,7 +343,7 @@ jobs:
           name: Check if migration successful
           command: |
             curl -H "token: 7cb66ce8-9b24-4bbd-9b69-31b5ca339fc1" --request GET https://api.memstash.io/values/${CIRCLE_WORKFLOW_ID}
-
+      - destroy-environment
 
 
 #      - run:
@@ -385,7 +388,7 @@ jobs:
           command: |
             ls
             aws s3 cp frontend/dist s3://udapeople-${CIRCLE_WORKFLOW_ID} --recursive
-
+      - destroy-environment
       # Here's where you will add some code to rollback on failure
 
   deploy-backend:
@@ -422,6 +425,7 @@ jobs:
             cp backend.zip .circleci/ansible/roles/deploy-backend/tasks/files/backend.zip
             ls .circleci/ansible/roles/deploy-backend/tasks/files
             ansible-playbook -vvvvv -i inventory.txt .circleci/ansible/roles/deploy-backend/tasks/deploy-backend.yml
+      - destroy-environment
 #      # Here's where you will add some code to rollback on failure
 
   smoke-test:
@@ -440,7 +444,7 @@ jobs:
           command: |
             ls
             BACKEND_IP=$(tail -n 1 inventory.txt)
-            export API_URL="http://${BACKEND_IP}:3030/api/status
+            export API_URL="http://${BACKEND_IP}:3030/api/status"
             echo "${API_URL}"
             curl API_URL
       - run:
@@ -461,6 +465,7 @@ jobs:
             else
             return 0
             fi
+      - destroy-environment
       # Here's where you will add some code to rollback on failure
 
   cloudfront-update:
@@ -481,7 +486,7 @@ jobs:
               --stack-name project3-cloudfront-${CIRCLE_WORKFLOW_ID} \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
 
-
+      - destroy-environment
 #  cleanup:
 #      docker:
 #        - image: amazon/aws-cli

@@ -19,6 +19,7 @@ commands:
           name: Install AWS CLI
           when: on_fail
           command: |
+            sudo apt-get update
             sudo apt-get install awscli
 
       - run:
@@ -431,6 +432,10 @@ jobs:
   smoke-test:
     docker:
       - image: cimg/base:2020.01
+    parameters:
+      API_URL:
+        default: ""
+        type: string
     steps:
       # Checkout code from git
       - run:
@@ -439,18 +444,14 @@ jobs:
             sudo apt-get install curl
       - attach_workspace:
           at: ~/
-      - run:
-          name: Get backend url
-          command: |
-            ls
-            BACKEND_IP=$(tail -n 1 inventory.txt)
 
-            export API_URL="http://${BACKEND_IP}:3030/api/status"
-            echo "${API_URL}"
-            curl API_URL
       - run:
           name: Backend smoke test.
           command: |
+            BACKEND_IP=$(tail -n 1 inventory.txt)
+            export API_URL="http://${BACKEND_IP}:3030/api/status"
+            echo "${API_URL}"
+
             if curl -s $API_URL | grep "Welcome"
             then
             return 1

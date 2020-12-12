@@ -20,7 +20,7 @@ commands:
           when: on_fail
           command: |
             sudo apt-get update
-            sudo apt-get install awscli
+            sudo apt-get install -y awscli
 
       - run:
           name: Destroy backend
@@ -452,7 +452,7 @@ jobs:
             export API_URL="http://${BACKEND_IP}:3030/api/status"
             echo "${API_URL}"
 
-            if curl -s $API_URL | grep "Welcome"
+            if curl -s ${API_URL} | grep "Welcome"
             then
             return 1
             else

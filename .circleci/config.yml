@@ -250,12 +250,6 @@ jobs:
           name: take a look
           command: |
             ls
-      - run:
-          name: delete stack on fail
-          when: on_fail
-          command: |
-            aws cloudformation delete-stack --stack-name << parameters.backend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
-            aws cloudformation delete-stack --stack-name << parameters.frontend-stack-name >>-${CIRCLE_WORKFLOW_ID} --region=us-west-2
 
       - destroy-environment
 
@@ -301,7 +295,10 @@ jobs:
           command: |
             # Your code here
             ls
-            ansible-playbook -v -i inventory.txt .circleci/ansible/roles/configure-server/tasks/configure-server.yml
+            touch newip.txt
+            echo [web] >> newip.txt
+            tail -n 1 inventory.txt >> newip.txt
+            ansible-playbook -v -i newip.txt .circleci/ansible/roles/configure-server/tasks/configure-server.yml
 
       - destroy-environment
       - slack/notify:
@@ -423,9 +420,12 @@ jobs:
           name: Copy Backend
           command: |
 
+            echo [web] >> newip.txt
+            tail -n 1 inventory.txt >> newip.txt
+
             cp backend.zip .circleci/ansible/roles/deploy-backend/tasks/files/backend.zip
             ls .circleci/ansible/roles/deploy-backend/tasks/files
-            ansible-playbook -vvvvv -i inventory.txt .circleci/ansible/roles/deploy-backend/tasks/deploy-backend.yml
+            ansible-playbook -vvvvv -i newip.txt .circleci/ansible/roles/deploy-backend/tasks/deploy-backend.yml
       - destroy-environment
 #      # Here's where you will add some code to rollback on failure
 

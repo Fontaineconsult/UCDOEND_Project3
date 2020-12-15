@@ -518,6 +518,7 @@ jobs:
               --no-paginate --output text)
               export OldWorkflowID="the id here"
               export STACKS=[] #put the list of stacks here
+
         - run:
             name: Remove old stacks and files
             command: |

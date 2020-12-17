@@ -286,7 +286,7 @@ jobs:
             # Your code here
             ls
             ansible-playbook -v -i inventory.txt .circleci/ansible/roles/configure-server/tasks/configure-server.yml
-
+            ansible-playbook -v -i inventory.txt .circleci/ansible/roles/configure-prometheus-node-exporter/tasks/main.yml
       - destroy-environment
       - slack/notify:
           event: fail

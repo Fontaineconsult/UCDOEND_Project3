@@ -191,10 +191,10 @@ jobs:
 
     parameters:
       backend-stack-name:
-        default: project3-back-end
+        default: backend
         type: string
       frontend-stack-name:
-        default: project3-front-end
+        default: frontend
         type: string
     docker:
       - image: amazon/aws-cli

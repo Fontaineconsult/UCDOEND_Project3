@@ -9,7 +9,7 @@ Parameters:
 
 Resources:
   WebsiteBucket:
-    Type: AWS::S3::Bucketz
+    Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub "udapeople-${ID}"
       AccessControl: PublicRead

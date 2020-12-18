@@ -1,5 +1,5 @@
 https://github.com/Fontaineconsult/UCDOEND_Project3
-
-
-
+http://s3.us-west-2.amazonaws.com/udapeople-3cb731f8-5cac-4ed1-b12b-af530111e18f
+http://udapeople-3cb731f8-5cac-4ed1-b12b-af530111e18f.s3-website-us-west-2.amazonaws.com
+http://ec2-52-12-108-141.us-west-2.compute.amazonaws.com
 http://ec2-34-212-45-189.us-west-2.compute.amazonaws.com:9090/

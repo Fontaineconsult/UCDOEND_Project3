@@ -47,6 +47,7 @@
         TYPEORM_DATABASE: postgres
 
       shell: |
+        export NODE_ENV=production
         printenv
         cd backend/backend/
         pm2 start --name "backend" npm -- start
